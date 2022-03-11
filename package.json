@@ -16,6 +16,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "glob-parent": "^6.0.2",
+    "markdown-it": "^12.3.2",
     "markdown-it-attribution-references": "^2.1.0-alpha.3",
     "markdown-it-figure-references": "^2.1.0-alpha.3",
     "markdown-it-mathjax3": "^4.3.1",
