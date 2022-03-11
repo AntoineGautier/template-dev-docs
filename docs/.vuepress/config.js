@@ -4,6 +4,8 @@ module.exports = {
     lang: 'en-US',
     title: 'Linkage',
 
+    base: '/template-dev-docs/',
+
     // theme and its config
     theme: '@vuepress/theme-default',
     themeConfig: {
