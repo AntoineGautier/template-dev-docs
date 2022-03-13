@@ -1,5 +1,7 @@
 # Guide
 
+:warning: Work in progress...
+
 Variables accessible at top-level of each template class
 
 - Design parameters
@@ -15,6 +17,9 @@ Master record
 - Which parameters should be exposed?
 
 
+## Icons
+
+Original icons used in are available in an SVG file at
 
 
 ## Master record

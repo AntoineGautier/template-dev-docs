@@ -35,7 +35,7 @@ Fan and pump models
 ![control](/img/control.png)
 :::
 
-## Order of Morphemes
+## Order of morphemes
 
 In the CamelCase instance name:
 
@@ -43,11 +43,14 @@ In the CamelCase instance name:
 
   - For instance a controller `ctl`, a fan `fan`, a coil `coi`
 
+  ::: details
+
   This is motivated by the naming of
 
   - variables&mdash;we would not use `SupAirT` for the supply air temperature, but rather `TAirSup`,
 
   - ports, see `port_a`.
+  :::
 
 - The suffixes stand for the attributes by order of importance.
 
@@ -65,7 +68,7 @@ In the CamelCase instance name:
 All CamelCase morphemes should be used before the first underscore like `mAirSup_flow_nominal`, with the exception of the physical connectors where we use `port_aChiWat`.
 
 
-## Do We Allow 3-Letter Capital Names such as CHW?
+## Do we allow 3-Letter capital names such as CHW?
 
 ***No!*** (Michael on 2/2/22)
 
@@ -91,28 +94,32 @@ Tolerated exceptions:
 - VAV
 
 
-## Fixed Position or Non-Abbreviated Forms
+## Fixed psition or non-abbreviated forms
 
-- _nominal, _min, _max and _actual always at the end
+- `_nominal`, `_min`, `_max` and `_actual` always at the end
 
-  min and max are attributes of primitive types in Modelica, same as nominal, and should have the same notation, not Min and Max in CamelCase.)
+  ::: details
+
+  `min` and `max` are attributes of primitive types in Modelica, same as `nominal`, and should have the same notation, not Min and Max in CamelCase.
+  :::
 
 - Design conditions = _nominal not Des
 
-- _flow for rate per unit of time
+- `_flow` for rate per unit of time
 
-- have_ for a structural parameter, always at the beginning
+- `have_`, `is_` or `use_` for a structural parameter, always at the beginning
 
-  Why not has_? Because “Does it have?”, same for “Does it use?”, but “Is it…?”
+  ::: details
 
-- is_ or use_ should also be noted like this, as opposed to the few occurrences of is… in the MBL master.
+  Why not `has_`? Because “Does it have?”, same for “Does it use?”, but “Is it?”
+  :::
 
-- _a and _b for inlet and outlet ports.
+- `_a` and `_b` for inlet and outlet ports.
 
 
 ## Reserved
 
-### Physical Quantities
+### Physical quantities
 
 Pressure:
 
@@ -155,7 +162,7 @@ The letter `y` is used  to represent a fractional quantity (speed, opening, load
 :::
 
 
-##  Legacy Exceptions
+##  Legacy exceptions
 
 Mainly for consistency with MSL we allow the following variable names.
 

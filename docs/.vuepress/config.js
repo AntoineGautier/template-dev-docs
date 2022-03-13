@@ -1,4 +1,6 @@
 
+const path = require('path');
+
 module.exports = {
     // site config
     lang: 'en-US',
