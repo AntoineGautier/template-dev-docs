@@ -55,3 +55,9 @@ jobs:
         env:
           # @see https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove File
+        uses: JesseTG/rm@v1.0.2
+        with:
+          path: |
+            **/node_modules
