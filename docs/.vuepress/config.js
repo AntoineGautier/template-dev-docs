@@ -3,7 +3,7 @@ const shiki = require('shiki')
 const fs = require('fs')
 const path = require('path')
 
-const modelicaGrammar = JSON.parse(fs.readFileSync("docs/.vuepress/modelica.tmLanguage.json"))
+const modelicaGrammar = JSON.parse(fs.readFileSync(path.resolve(__dirname, './modelica.tmLanguage.json')))
 
 const modelica = {
   id: 'modelica',
