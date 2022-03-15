@@ -40,7 +40,7 @@ module.exports = {
     },
 
     plugins: [
-        '@vuepress/plugin-search',
+        // '@vuepress/plugin-search',
         [ '@vuepress/plugin-shiki', { theme: 'dark-plus', langs: langs } ],
     ],
 
