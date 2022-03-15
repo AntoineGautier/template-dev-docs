@@ -11,8 +11,7 @@ const modelica = {
   grammar: modelicaGrammar,
   aliases: ['mo', 'modelica'],
 }
-var langs = [ modelica ]
-langs = langs.concat(shiki.BUNDLED_LANGUAGES)
+const langs = [ modelica, ...shiki.BUNDLED_LANGUAGES ]
 
 
 module.exports = {
