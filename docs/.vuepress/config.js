@@ -1,5 +1,19 @@
 
-const path = require('path');
+const shiki = require('shiki')
+const fs = require('fs')
+const path = require('path')
+
+const modelicaGrammar = JSON.parse(fs.readFileSync("docs/.vuepress/modelica.tmLanguage.json"))
+
+const modelica = {
+  id: 'modelica',
+  scopeName: 'source.modelica',
+  grammar: modelicaGrammar,
+  aliases: ['mo', 'modelica'],
+}
+var langs = [ modelica ]
+langs = langs.concat(shiki.BUNDLED_LANGUAGES)
+
 
 module.exports = {
     // site config
@@ -27,6 +41,7 @@ module.exports = {
 
     plugins: [
         '@vuepress/plugin-search',
+        ['@vuepress/plugin-shiki', { theme: 'dark-plus', langs: langs }],
     ],
 
     markdown: {

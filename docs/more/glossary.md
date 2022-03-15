@@ -8,7 +8,7 @@ sidebarDepth: 2
 
 ### Source, load
 
-We adopt the definitions from [Guideline 36](./references.md/#ashrae-g36) §5.1.19.1.
+We adopt the definitions from [Guideline 36](./references.md#ashrae-g36) §5.1.19.1.
 
 > A component is a “source” if it provides resources to a downstream component, such as a chiller providing chilled water (CHW) to an AHU.
 >
@@ -19,7 +19,7 @@ We adopt the definitions from [Guideline 36](./references.md/#ashrae-g36) §5.1.
 
 ### Component, system
 
-We adopt the definitions from [Guideline 36](./references.md/#ashrae-g36) §5.1.19.1.
+We adopt the definitions from [Guideline 36](./references.md#ashrae-g36) §5.1.19.1.
 
 > A set of components is a system if they share a load in common (i.e., collectively act as a source to downstream equipment, such as a set of chillers in a lead/lag relationship serving air handlers).
 > - Each air handler constitutes its own separate system because they do not share a load in common. Each AHU is a load to the CHW pump system and a source to its own VAV boxes.

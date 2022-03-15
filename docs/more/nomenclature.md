@@ -22,7 +22,7 @@ Fan and pump models
   - `y` (optional) for the commanded speed (real, fractional)
 - return `y1_actual` (Boolean, status)
 
-(See also [command in Glossary](./glossary/#command).)
+(See also [command in Glossary](./glossary.md#command).)
 
 
 
