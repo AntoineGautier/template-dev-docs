@@ -1,10 +1,9 @@
 
 const shiki = require('shiki')
-const fs = require('fs')
-const path = require('path')
+const { readFileSync } = require('fs')
+const { path } = require('@vuepress/utils')
 
-const modelicaGrammar = JSON.parse(fs.readFileSync(path.resolve(__dirname, './modelica.tmLanguage.json')))
-
+const modelicaGrammar = JSON.parse(readFileSync(path.resolve(__dirname, './modelica.tmLanguage.json')))
 const modelica = {
   id: 'modelica',
   ext: 'mo',
@@ -40,7 +39,7 @@ module.exports = {
     },
 
     plugins: [
-        // '@vuepress/plugin-search',
+        '@vuepress/plugin-search',
         [ '@vuepress/plugin-shiki', { theme: 'dark-plus', langs: langs } ],
     ],
 
