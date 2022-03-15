@@ -95,16 +95,16 @@ parameter RecordCoil dat = if coiCoo.typ == CoiCooling then RecordCoolingCoil el
   - Does not work because `Choices` annotations in extend clauses (although legal) are not interpreted by Dymola. This prevents instantiating partial replaceable components at the top level, for instance in PartialOutdoorReliefReturnSection
   - Same limitation leads to Buildings.Templates.Components.Coils.WaterBasedHeating and Buildings.Templates.Components.Coils.WaterBasedCooling
 
-```modelica
-  extends Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
-    redeclare replaceable Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan secRel
-      constrainedby Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection
-      annotation (
-        choices(
-          choice(redeclare Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan secRel
-            "Return fan - Modulated relief damper"),
-          choice(redeclare Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan secRel
-            "Relief fan - Two-position relief damper"))),
+```mo
+extends Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
+  redeclare replaceable Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan secRel
+    constrainedby Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection
+    annotation (
+      choices(
+        choice(redeclare Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan secRel
+          "Return fan - Modulated relief damper"),
+        choice(redeclare Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan secRel
+          "Relief fan - Two-position relief damper"))),
 ```
 
 
@@ -122,14 +122,6 @@ Wrapper classes allow easier reconfiguration (through parameter binding, without
   - The main issue is mainly changing the parameter set, as `Dialog(enable=...)` does not handle unassigned parameters (with no default) and conditional components can only be used in connect statements (so not for in parameter binding).
     - Or at initialization with `fixed=false`.
   - As opposed to a replaceable component which adds its own set of parameters: the parameters from another configuration do not exist in the actual variable scope.
-
-One zone for one terminal unit. Terminal units are indexed (in Modelica array) according to the order provided in
-```js
-        "Terminal unit identifiers": [
-            "Box_1"
-        ],
-```
-and assigned to `final parameter String idTerArr[nZon]`
 
 - The bus architecture is devised for modeling, does not reflect the real system bus architecture (only "mimics"): we use an array of terminal unit bus, whereas a real system register each terminal point to a single point in a flat bus.
 

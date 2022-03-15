@@ -7,6 +7,7 @@ const modelicaGrammar = JSON.parse(fs.readFileSync("docs/.vuepress/modelica.tmLa
 
 const modelica = {
   id: 'modelica',
+  ext: 'mo',
   scopeName: 'source.modelica',
   grammar: modelicaGrammar,
   aliases: ['mo', 'modelica'],
@@ -40,7 +41,7 @@ module.exports = {
 
     plugins: [
         '@vuepress/plugin-search',
-        ['@vuepress/plugin-shiki', { theme: 'dark-plus', langs: langs }],
+        [ '@vuepress/plugin-shiki', { theme: 'dark-plus', langs: langs } ],
     ],
 
     markdown: {
