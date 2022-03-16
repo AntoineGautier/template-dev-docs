@@ -47,8 +47,8 @@ parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=
 Use the code tags from [PEP 350](https://peps.python.org/pep-0350/#mnemonics) to reference issues and feature enhancements directly in the Modelica code base. Specify the GH issue number if available.
 We keep it simple and only use:
 
-- `BUG` (should prevent merging)
-- `FIXME` (should prevent merging, include [PEP 350](https://peps.python.org/pep-0350/#mnemonics) `TODO` under that code tag)
+- `BUG` when this prevents from translating or simulating the model (should prevent merging)
+- `FIXME` for any technical debt not suitable for production (should prevent merging, include [PEP 350](https://peps.python.org/pep-0350/#mnemonics) `TODO` under that code tag)
 - `HACK`
 - `RFE`
 - `TODOC`

@@ -3,7 +3,7 @@
 
 # Nomenclature
 
-This provides conventions for variable and instance naming.
+This provides conventions for variable naming, and for component naming marginally.
 
 
 ## Control points
@@ -23,7 +23,6 @@ Fan and pump models
 - return `y1_actual` (Boolean, status)
 
 (See also [command in Glossary](./glossary.md#command).)
-
 
 
 ::: details
@@ -47,9 +46,9 @@ In the CamelCase instance name:
 
   This is motivated by the naming of
 
-  - variables&mdash;we would not use `SupAirT` for the supply air temperature, but rather `TAirSup`,
+  - quantity variables: we would not use `SupAirT` for the supply air temperature, but rather `TAirSup`,
 
-  - ports, see `port_a`.
+  - physical connectors: see `port_a`.
   :::
 
 - The suffixes stand for the attributes by order of importance.
@@ -59,18 +58,18 @@ In the CamelCase instance name:
   - For a quantity
 
     - the first suffix shall systematically describe the medium (`ChiWat`, `Air`, etc.),
-    - the second suffix shall describe the origin of the medium (ChiWatSup, TAirSup, etc.).
+    - the second suffix shall describe the origin of the medium (`ChiWatSup`, `TAirSup`, etc.).
 
     Exceptions are only allowed if the quantity is a system characteristic for which there is no ambiguity, for instance `dpDamOut_nominal` for the OA damper pressure drop (we don’t mention air) or `dpValCoiCoo` for the cooling coil control valve (we don’t mention CHW).
     Similarly: `TOut` (air implied), `TZon` (air implied), `pBui_rel` (air implied).
 
 
-All CamelCase morphemes should be used before the first underscore like `mAirSup_flow_nominal`, with the exception of the physical connectors where we use `port_aChiWat`.
+All CamelCase morphemes should be used before the first underscore&mdash;such as in `mAirSup_flow_nominal`&mdash;with the exception of the physical connectors where we use `port_aChiWat`.
 
 
 ## Do we allow 3-Letter capital names such as CHW?
 
-***No!*** (Michael on 2/2/22)
+***No!***
 
 3-letter capital abbreviations are only allowed&mdash;and encouraged&mdash;in documentation and description strings.
 
@@ -94,7 +93,7 @@ Tolerated exceptions:
 - VAV
 
 
-## Fixed psition or non-abbreviated forms
+## Fixed position or non-abbreviated forms
 
 - `_nominal`, `_min`, `_max` and `_actual` always at the end
 
@@ -103,7 +102,7 @@ Tolerated exceptions:
   `min` and `max` are attributes of primitive types in Modelica, same as `nominal`, and should have the same notation, not Min and Max in CamelCase.
   :::
 
-- Design conditions = _nominal not Des
+- For design conditions use `_nominal` not `Des`
 
 - `_flow` for rate per unit of time
 
@@ -131,14 +130,13 @@ Relative humidity: `phi`
 
 From [Buildings.UsersGuide.Conventions](https://simulationresearch.lbl.gov/modelica/releases/v8.1.0/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions):
 
-- Uppercase `X` denotes mass fraction per total mass.
-
-- Lowercase `x` denotes mass fraction per mass of dry air.
+- Mass fraction
+  - Uppercase `X` denotes mass fraction per total mass.
+  - Lowercase `x` denotes mass fraction per mass of dry air (absolute humidity).
 
 - `TWetBul` for wet bulb
 
 ::: tip
-
 The naming conventions used for variables representing quantities (such as `T` for temperature) should be used in instance names (typically sensors) for the sake of concision.
 
 For instance a sensor for supply air temperature should be named `TAirSup` instead of `senTemAirSup`.
