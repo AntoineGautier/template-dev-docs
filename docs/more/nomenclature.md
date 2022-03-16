@@ -3,13 +3,13 @@
 
 # Nomenclature
 
-This provides conventions for variable naming, and for component naming marginally.
+This provides conventions mainly for variable naming, and marginally for component naming.
 
 
 ## Control points
 
 Damper and valve models
-- take as an input
+- take
   - `y1` (Boolean) if 2-position, XOR
   - `y` (real, fractional) if modulating
 - return
@@ -17,7 +17,7 @@ Damper and valve models
   - `y1_actual` (Boolean, open end switch status) and `y0_actual` (Boolean, closed end switch status)
 
 Fan and pump models
-- take as an input
+- take
   - `y1` for the on/off command (Boolean, used for constant and variable speed pump/fan VFD Run signal), AND
   - `y` (optional) for the commanded speed (real, fractional)
 - return `y1_actual` (Boolean, status)
@@ -137,7 +137,7 @@ From [Buildings.UsersGuide.Conventions](https://simulationresearch.lbl.gov/model
 - `TWetBul` for wet bulb
 
 ::: tip
-The naming conventions used for variables representing quantities (such as `T` for temperature) should be used in instance names (typically sensors) for the sake of concision.
+The naming conventions used for variables representing quantities (such as `T` for temperature) should be used in component names (typically sensors) for the sake of concision.
 
 For instance a sensor for supply air temperature should be named `TAirSup` instead of `senTemAirSup`.
 :::
