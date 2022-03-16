@@ -1,7 +1,4 @@
 {
-  "name": "template-dev-docs",
-  "version": "1.0.0",
-  "main": "index.js",
   "repository": "git@github.com:AntoineGautier/template-dev-docs.git",
   "author": "AntoineGautier <agautier@solamen.fr>",
   "license": "MIT",
@@ -13,6 +10,7 @@
     "@vuepress/plugin-search": "^2.0.0-beta.36",
     "@vuepress/plugin-shiki": "^2.0.0-beta.36",
     "markdown-it-attribution-references": "^2.1.0-alpha.3",
+    "markdown-it-figure-references": "^2.1.0-alpha.3",
     "markdown-it-mathjax3": "^4.3.1",
     "markdown-it-references": "^2.1.0-alpha.3",
     "markdown-it-table-references": "^2.1.0-alpha.3",

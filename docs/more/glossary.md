@@ -5,7 +5,6 @@ sidebarDepth: 2
 
 # Glossary
 
-
 ### Source, load
 
 We adopt the definitions from [Guideline 36](./references.md#ashrae-g36) §5.1.19.1.

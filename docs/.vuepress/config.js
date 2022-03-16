@@ -55,6 +55,7 @@ module.exports = {
         md.use(require('markdown-it-figure-references')),
         md.use(require('markdown-it-table-references')),
         md.use(require('markdown-it-references')),
-        md.use(require('markdown-it-mathjax3'))
+        md.use(require('markdown-it-mathjax3')),
+        md.set({ breaks: true })
     }
 }
