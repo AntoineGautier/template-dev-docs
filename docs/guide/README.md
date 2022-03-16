@@ -67,13 +67,8 @@ Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:178: 
 Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:204:    "FIXME #1913: Optimal start using global outdoor air temperature not associated with any AHU"
 Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:207:    "FIXME #1913: Should be conditional, depending on have_hotWatCoi"
 Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:210:    "FIXME #1913: Validate override logic: should not be used in simulation"
-Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:213:    "FIXME #1913: Validate override logic: should not be used in simulation"
 Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:216:    "FIXME #1913: Should be conditional, depending on have_hotWatCoi"
 Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:219:    "RFE: Set point adjustment by the occupant is not implemented"
-Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:222:    "RFE: Set point adjustment by the occupant is not implemented"
-Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:225:    "RFE: Set point adjustment by the occupant is not implemented"
-Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:228:    "RFE: Set point adjustment by demand limit is not implemented"
-Buildings/Templates/./ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo:231:    "RFE: Set point adjustment by demand limit is not implemented"
 Buildings/Templates/./AirHandlersFans/VAVMultiZone.mo:478:<!-- RFE: This should be integrated in the AHU template ultimately. -->
 Buildings/Templates/./AirHandlersFans/Components/Controls/Interfaces/PartialVAVMultizone.mo:26:  // RFE #1913: implement computation based on speed if Calculated.
 ...

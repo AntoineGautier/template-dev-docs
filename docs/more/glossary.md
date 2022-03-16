@@ -36,9 +36,9 @@ See also [Enable](#enable).
 
 ### Enable
 
-For VFDs, Enable is a special contact on the VFD panel typically hardwired to a relay logic for safety (see G36 Figure A-9 for instance). This is not the same as the DO point that actually starts the equipment ("on/off command" or "start signal") which is wired to VFD RUN contact.
+For VFDs, Enable is a special contact on the VFD panel typically hardwired to a relay logic for safety (see G36 Figure A-9 for instance). This is not the same as the DO point that actually starts the equipment ("on/off command" or "start signal") which is wired to VFD Run contact.
 
-Enable is used differently for an equipment with built-in control (e.g. chiller or boiler) where the "on/off command" is wired to the Enable contact on the control panel (see RP1711 §4), there is no RUN contact.
+Enable is used differently for an equipment with built-in control (e.g. chiller or boiler) where the "on/off command" is wired to the Enable contact on the control panel (see RP1711 §4), there is no Run contact.
 
 - Abbreviated as `y1<instance-name>`
 

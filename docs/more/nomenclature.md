@@ -3,7 +3,7 @@
 
 # Nomenclature
 
-This provides conventions mainly for variable naming, and marginally for component naming.
+This provides conventions mainly for variable naming, marginally for component naming.
 
 
 ## Control points
@@ -18,8 +18,8 @@ Damper and valve models
 
 Fan and pump models
 - take
-  - `y1` for the on/off command (Boolean, used for constant and variable speed pump/fan VFD Run signal), AND
-  - `y` (optional) for the commanded speed (real, fractional)
+  - `y1` for the on/off command (Boolean, used for constant speed motor starter, and variable speed VFD Run signal), AND
+  - `y` (optional) for the commanded speed (real fractional or integer, used for variable speed or 2-stage fan motor)
 - return `y1_actual` (Boolean, status)
 
 (See also [command in Glossary](./glossary.md#command).)
@@ -67,11 +67,13 @@ In the CamelCase instance name:
 All CamelCase morphemes should be used before the first underscore&mdash;such as in `mAirSup_flow_nominal`&mdash;with the exception of the physical connectors where we use `port_aChiWat`.
 
 
-## Do we allow 3-Letter capital names such as CHW?
+## Do we allow 3-letter capital names such as CHW?
 
-***No!***
+::: danger NO
 
 3-letter capital abbreviations are only allowed&mdash;and encouraged&mdash;in documentation and description strings.
+:::
+
 
 For variable and instance names:
 
