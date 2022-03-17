@@ -7,7 +7,7 @@ sidebarDepth: 2
 
 ### Source, load
 
-We adopt the definitions from [Guideline 36](./references.md#ashrae-g36) §5.1.19.1.
+We adopt the definitions from [Guideline 36](../references.md#g36) §5.1.19.1.
 
 > A component is a “source” if it provides resources to a downstream component, such as a chiller providing chilled water (CHW) to an AHU.
 >
@@ -18,7 +18,7 @@ We adopt the definitions from [Guideline 36](./references.md#ashrae-g36) §5.1.1
 
 ### Component, system
 
-We adopt the definitions from [Guideline 36](./references.md#ashrae-g36) §5.1.19.1.
+We adopt the definitions from [Guideline 36](../references.md#g36) §5.1.19.1.
 
 > A set of components is a system if they share a load in common (i.e., collectively act as a source to downstream equipment, such as a set of chillers in a lead/lag relationship serving air handlers).
 > - Each air handler constitutes its own separate system because they do not share a load in common. Each AHU is a load to the CHW pump system and a source to its own VAV boxes.
@@ -36,7 +36,7 @@ See also [Enable](#enable).
 
 ### Enable
 
-For VFDs, Enable is a special contact on the VFD panel typically hardwired to a relay logic for safety (see G36 Figure A-9 for instance). This is not the same as the DO point that actually starts the equipment ("on/off command" or "start signal") which is wired to VFD Run contact.
+For VFDs, Enable is a special contact on the VFD panel typically hardwired to a relay logic for safety (see [Guideline 36](../references.md#g36) Figure A-9 for instance). This is not the same as the DO point that actually starts the equipment ("on/off command" or "start signal") which is wired to VFD Run contact.
 
 Enable is used differently for an equipment with built-in control (e.g. chiller or boiler) where the "on/off command" is wired to the Enable contact on the control panel (see RP1711 §4), there is no Run contact.
 
@@ -75,7 +75,7 @@ Spelled in ***two words*** (such as input point, output point, software point, h
 
 ::: details
 
-This is per ASHRAE’s convention (G36 but also FUNDAMENTALS OF CONTROL) although many other sources (including Aström’s PID Controllers) use one word (setpoint).
+This is per ASHRAE’s convention ([Guideline 36](../references.md#g36) but also FUNDAMENTALS OF CONTROL) although many other sources (including Aström’s PID Controllers) use one word (setpoint).
 :::
 
 ### Supply, return, entering, leaving

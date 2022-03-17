@@ -41,7 +41,7 @@ module.exports = {
     plugins: [
         '@vuepress/plugin-search',
         [ '@vuepress/plugin-shiki', { theme: 'dark-plus', langs: langs } ],
-        [ '@snippetors/vuepress-plugin-code-copy', { color: '#d3d3d3', backgroundColor: '#3f3f3f' } ],
+        [ '@snippetors/vuepress-plugin-code-copy', { color: '#CCd3d3d3', backgroundColor: '#2C2A2A' } ],
     ],
 
     markdown: {
@@ -61,3 +61,4 @@ module.exports = {
         md.set({ breaks: true })
     }
 }
+2121
