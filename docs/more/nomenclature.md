@@ -61,7 +61,11 @@ In the CamelCase instance name:
     - the second suffix shall describe the origin of the medium (`ChiWatSup`, `TAirSup`, etc.).
 
     Exceptions are only allowed if the quantity is a system characteristic for which there is no ambiguity, for instance `dpDamOut_nominal` for the OA damper pressure drop (we don’t mention air) or `dpValCoiCoo` for the cooling coil control valve (we don’t mention CHW).
-    Similarly: `TOut` (air implied), `TZon` (air implied), `pBui_rel` (air implied).
+
+    Similarly (exhaustive list):
+    - `TOut` (air implied)
+    - `TZon` (air implied)
+    - `pBui_rel` (air implied)
 
 
 All CamelCase morphemes should be used before the first underscore&mdash;such as in `mAirSup_flow_nominal`&mdash;with the exception of the physical connectors where we use `port_aChiWat`.

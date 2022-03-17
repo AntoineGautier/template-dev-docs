@@ -41,6 +41,7 @@ module.exports = {
     plugins: [
         '@vuepress/plugin-search',
         [ '@vuepress/plugin-shiki', { theme: 'dark-plus', langs: langs } ],
+        [ '@snippetors/vuepress-plugin-code-copy', { color: '#d3d3d3', backgroundColor: '#3f3f3f' } ],
     ],
 
     markdown: {
@@ -56,6 +57,7 @@ module.exports = {
         md.use(require('markdown-it-table-references')),
         md.use(require('markdown-it-references')),
         md.use(require('markdown-it-mathjax3')),
+        md.use(require('markdown-it-attrs')),
         md.set({ breaks: true })
     }
 }
