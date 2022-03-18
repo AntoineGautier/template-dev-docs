@@ -151,7 +151,7 @@ The master record of a template class is the Modelica data structure that is use
 
 - assign design and operating parameter values for all subcomponents,
 - support parameter propagation from a top-level, whole HVAC system parameter record,
-- populate the [equipment schedule in Linkage UI](https://docs.google.com/spreadsheets/d/1kko4qZswFHUqOeexBIz8Ix_ngJB_9dcjwFRQxO_G56c/edit?usp=sharing).
+- populate the [equipment schedule in Linkage UI](https://docs.google.com/document/d/16Z8HqTi3vNV3HUaa4ijBPVSQvA4MyGTu8bxoGTBD2YI/edit?usp=sharing).
 
 
 ### Implementation rules
@@ -204,10 +204,11 @@ Refer to the [specification for the generation of engineering schematics](https:
 ::: warning Modelica tool support
 
 Currently the SVG graphics integrated using class annotations such as `Icon(graphics={Bitmap(fileName=<svg-file-path>, visible=<boolean-expression>))` are not rendered by Modelon Impact, and only very incompletely by OMEdit, most likely due to `<boolean-expression>` not being evaluated at UI runtime.
+
+Dymola (v2022.x) entirely supports those features.
 :::
 
 The master SVG document containing all raw icons provided by Taylor Engineering and used in [Guideline 36](../references.md#g36) is currently located at [`Buildings/Resources/Images/Templates/Icons.svg`](https://github.com/lbl-srg/modelica-buildings/blob/issue1374_templates/Buildings/Resources/Images/Templates/Icons.svg).
-Dymola (v2022.x) entirely supports those features.
 
 Those raw icons must be processed as described below for Inkscape (v1.1) before being used in the icon layers of Modelica classes.
 
