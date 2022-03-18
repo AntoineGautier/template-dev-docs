@@ -1,0 +1,1 @@
+const e={key:"v-3fcd8738",path:"/references.html",title:"References",lang:"en-US",frontmatter:{sidebar:!1},excerpt:"",headers:[],git:{updatedTime:1647636684e3,contributors:[{name:"AntoineGautier",email:"agautier@solamen.fr",commits:5}]},filePathRelative:"references.md"};export{e as data};
