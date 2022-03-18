@@ -162,7 +162,7 @@ The letter `y` is used  to represent a fractional quantity (speed, opening, load
 
   - Prefer `cfg` to `con` for a configuration.
 
-  - Prefer `lck` to `loc` for lock-out as the latter too loose: local, etc.
+  - Prefer `lck` to `loc` for lock-out as the latter is too loose: local, etc.
 :::
 
 

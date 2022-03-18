@@ -4,65 +4,76 @@
 
 ## Interface class
 
-What must be declared
+What must be declared within an interface class:
 
-::: danger Important
+- All outside connectors needed by any derived class&mdash;with the suitable conditional instance statements
 
-All outside connectors must be declared within the interface class.
-(A template class shall not declare any outside connector.)
-:::
+  ::: danger Important
 
-This allows
-- at the template level: defining all possible connections inside a template class, whatever the redeclarations performed on its components,
-- at the simulation model level: having a fixed connectivity structure for each instantiated subsystem model, which allows to connect those instances together without any concern about the actual configuration of each subsystem.
+  All outside connectors must be declared within the interface class.
+  (Each class extending an interface class shall not declare any outside connector: it may only conditionally remove inherited connectors.)
+  :::
 
-How it complies with the [Modelica Language Specification](../references.md#modelica)
+  This ensures the [plug-compatibility](https://specification.modelica.org/maint/3.5/interface-or-type-relationships.html#plug-compatibility-or-restricted-subtyping) of any derived class, and allows
+  - at the template level: defining all possible connections inside a template class, whatever the redeclarations performed on its components,
+  - at the simulation model level: having a fixed connectivity structure for each instantiated subsystem model, which allows to connect those instances together without any concern about the actual configuration of each subsystem.
 
-How it differs from interface classes in MBL such as
+  ::: details
 
-```mo
-// Buildings.Fluid.Boilers.BaseClasses.PartialBoiler
-  extends Interfaces.TwoPortHeatMassExchanger(...);
+  *How does it comply with the [Modelica Language Specification](https://specification.modelica.org/maint/3.5/scoping-name-lookup-and-flattening.html#generation-of-the-flat-equation-system)?*
 
-  Modelica.Blocks.Interfaces.RealInput y(...)
-    "Part load ratio";
-  Modelica.Blocks.Interfaces.RealOutput T(...)
-    "Temperature of the fluid";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port, can be used to connect to ambient";
-```
+  - Type compatibility
 
-Variables accessible at top-level of each template class
+    > Each reference is checked, whether it is a valid reference, e.g. the referenced object belongs to or is an instance, where all *existing conditional declaration expressions evaluate to true* or it is a constant in a package.
 
-- Design parameters
-- All possible connectors
-- Parameter record
+    So checking that the redeclared component is a subtype of the constraining class is done with all the conditional connectors considered present (even if the redeclared component removes them).
+
+  *How does it differ from interface classes in MBL?*
+
+  Interface classes are usually implemented with the minimum set of connectors (and other variables) and derived classes extend that set (which ensures type compatibility).
+  See for instance `Buildings.Fluid.Boilers.BaseClasses.PartialBoiler`:
+
+  ```mo
+  // Buildings.Fluid.Boilers.BaseClasses.PartialBoiler
+    extends Interfaces.TwoPortHeatMassExchanger(...); // Interface class used by the model
+
+    Modelica.Blocks.Interfaces.RealInput y(...)       // Additional connector not declared in the interface class
+      "Part load ratio";
+    Modelica.Blocks.Interfaces.RealOutput T(...)      // Additional connector not declared in the interface class
+      "Temperature of the fluid";
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort  // Additional connector not declared in the interface class
+      "Heat port, can be used to connect to ambient";
+  ```
+  :::
+
+- [Parameter record](#master-record) and design parameters
+
+  ```mo
+  final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
+    dat.mAirSup_flow_nominal
+    "Supply air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
+    dat.mAirRet_flow_nominal
+    "Return air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
+    "Total CHW mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal
+    "Total HHW mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal
+    "Total CHW heat flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
+    "Total HHW heat flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  ```
 
 
-```mo
-final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
-  dat.mAirSup_flow_nominal
-  "Supply air mass flow rate"
-  annotation (Dialog(group="Nominal condition"));
-final parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
-  dat.mAirRet_flow_nominal
-  "Return air mass flow rate"
-  annotation (Dialog(group="Nominal condition"));
-parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
-  "Total CHW mass flow rate"
-  annotation (Dialog(group="Nominal condition"));
-parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal
-  "Total HHW mass flow rate"
-  annotation (Dialog(group="Nominal condition"));
-parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal
-  "Total CHW heat flow rate"
-  annotation (Dialog(group="Nominal condition"));
-parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
-  "Total HHW heat flow rate"
-  annotation (Dialog(group="Nominal condition"));
-```
 
-## Replaceable components
+## Replaceable component
 
 No `choicesAllMatching` annotation is currently allowed in the `Templates` package (to maximize support across various Modelica tools).
 Expand into an explicit `choices` annotation with proper description strings and the following rules.
@@ -106,43 +117,50 @@ Particularly this control section uses the same class for the control bus as the
 
 ## Control point connections
 
-
+To be updated.
 
 ## Master record
 
-The system master record is the Modelica data structure that is used to populate the [equipment schedule in Linkage UI](https://docs.google.com/spreadsheets/d/1kko4qZswFHUqOeexBIz8Ix_ngJB_9dcjwFRQxO_G56c/edit?usp=sharing).
+The template master record is the Modelica data structure that is used to populate the [equipment schedule in Linkage UI](https://docs.google.com/spreadsheets/d/1kko4qZswFHUqOeexBIz8Ix_ngJB_9dcjwFRQxO_G56c/edit?usp=sharing).
 
-### Rules
+### Implementation rules
 
-> Only one level of nesting.
+*Use only one level of nesting (composition).*
 
 If needed, component records must extend (not instantiate) subcomponent records.
-In `Buildings.Templates.Components.Coils.Interfaces.Data`
+For instance in `Buildings.Templates.Components.Coils.Interfaces.Data`:
 
-- Cannot extend `Buildings.Templates.Components.Valves.Interfaces.Data` because of the duplicated inconsistent declaration of `typ`.
-- So we declare `dpValve_nominal` locally and construct a protected `Buildings.Templates.Components.Valves.Interfaces.Data` record to pass in parameters to the valve instance.
+- The class cannot extend `Buildings.Templates.Components.Valves.Interfaces.Data` because of the duplicated inconsistent declaration of `typ`.
+- So `dpValve_nominal` is declared locally and a protected record with the type `Buildings.Templates.Components.Valves.Interfaces.Data` is constructed to pass in parameters to the valve component.
 
-> Structural (configuration) parameters must be set through the component model, not through the record.
+*Structural (configuration) parameters must be set through the component model, not through the record.*
 
-- Structural parameters are assigned FROM the component model TO the record, and propagated UP the instance tree.
-- Design and operating parameters are assigned FROM the record TO the component model, and propagated DOWN the instance tree.
+- Structural parameters are assigned ***from*** the component model ***to*** the record, and propagated ***up*** the instance tree.
+- Design and operating parameters are assigned ***from*** the record ***to*** the component model, and propagated ***down*** the instance tree.
 
-Record for controller needs to be instantiated (not extended) in the master record because it requires many structural parameters (such as `typFanSup`) that are duplicated from the master record.
+The record for the [controller section](#control-section) needs to be instantiated (not extended) in the master record because it requires many structural parameters (such as `typFanSup`) that are duplicated from the master record.
 
 
 At the component level, we instantiate the component record and bind (`final`) local parameters to the record elements, as in `Buildings.Fluid.Chillers.ElectricEIR` (as opposed to extending the record to integrate the parameter definitions as `Buildings.Fluid.Actuators.BaseClasses.ValveParameters`).
 This allows simpler propagation (only the record is passed in), agnostic from the parameter structure of the constraining class (for instance `mWat_flow_nominal` is not defined in `Buildings.Templates.Components.Coils.Interfaces.PartialCoil`).
 
-> Do not use final bindings for configuration parameters to allow propagation from top-level (whole building) record. Instead, use `annotation(Dialog(enable=false))`.
+*Do not use final bindings for configuration parameters, use `annotation(Dialog(enable=false))` instead.*
 
-Which parameters should be exposed
+This is a temporary workaround for what seems to be a bug in Dymola (SRF00860858) and to allow propagating from a top-level (whole building) record as in `Buildings.Templates.AirHandlersFans.Validation.VAVMZNoEconomizer`.
 
-::: details About `outer` references
 
-Top-level model with outer references should be supported but the valid `outer replaceable` component declaration clause differs between OCT and Dymola, see `issue1374_templates_record_outer`.
+::: details About outer references
 
-At the AHU template level, switching to outer references (using a model instead of a record where it is prohibited) would avoid painful propagation of configuration parameters `typ*`. However, this will not support propagation from a top level (whole building) record then.
+Top-level model with outer references should be supported but the valid `outer replaceable` component declaration clause differs between OCT and Dymola, see [`issue1374_templates_record_outer`](https://github.com/AntoineGautier/modelica-buildings/blob/issue1374_templates_record_outer/Buildings/Templates/AirHandlersFans/Validation/UserProject/DataTopLevelDymola.mo).
+
+At the AHU template level, switching to outer references (and using a model instead of a record&mdash;as [elements of a record shall not have `inner` nor `outer` prefixes](https://specification.modelica.org/maint/3.5/class-predefined-types-and-declarations.html#specialized-classes)) would avoid painful propagation of configuration parameters `typ*`. However, this will not support propagation from a top level (whole building) record then.
 :::
+
+### Exposed parameters
+
+To be updated.
+
+
 
 ## Icons for system schematics
 
@@ -150,12 +168,13 @@ Refer to the [specification for the generation of engineering schematics](https:
 
 ::: warning Modelica tool support
 
-Currently the SVG graphics integrated with class annotations `Icon(graphics={Bitmap(fileName=<svg-fil-path>, visible=<boolean-expression>))` are not rendered by Modelon Impact, and only very incompletely by OMEdit.
+Currently the SVG graphics integrated using class annotations such as `Icon(graphics={Bitmap(fileName=<svg-file-path>, visible=<boolean-expression>))` are not rendered by Modelon Impact, and only very incompletely by OMEdit, most likely due to `<boolean-expression>` not being evaluated at UI runtime.
 :::
 
 The master SVG document containing all raw icons provided by Taylor Engineering and used in [Guideline 36](../references.md#g36) is currently located at [`Buildings/Resources/Images/Templates/Icons.svg`](https://github.com/lbl-srg/modelica-buildings/blob/issue1374_templates/Buildings/Resources/Images/Templates/Icons.svg).
+Dymola (v2022.x) entirely supports those features.
 
-Those raw icons must be processed as described below for Inkscape (V1.1) before being used in the icon layers of Modelica classes.
+Those raw icons must be processed as described below for Inkscape (v1.1) before being used in the icon layers of Modelica classes.
 
 - Select object, copy to new file
 - Change line color to black

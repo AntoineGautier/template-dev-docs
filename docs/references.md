@@ -10,7 +10,7 @@ ASHRAE, 2018. Guideline 36 &ndash; High-Performance Sequences of Operation for H
 
 <a id="modelica"></a>
 
-Modelica Association, 2021. Modelica &ndash; A Unified Object-Oriented Language for Systems Modeling, Language Specification, Version 3.5.
+Modelica Association, 2021. Modelica &ndash; A Unified Object-Oriented Language for Systems Modeling, Language Specification, version 3.5.
 
 <a id="rp1711"></a>
 

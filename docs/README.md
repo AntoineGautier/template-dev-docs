@@ -8,5 +8,5 @@ features:
   - title: Audience
     details: Contributors to MBL Templates Package
   - title: Version
-    details: V0.x (draft) 3/11/22
+    details: v0.x (draft) 3/11/22
 ---
