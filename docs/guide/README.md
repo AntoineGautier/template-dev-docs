@@ -114,7 +114,7 @@ A so-called section is needed anytime there is a hard constraint on the allowabl
 
 ::: details Example
 
-For instance, in the case of a multiple-zone VAV with air economizer, a return fan requires a modulating relief damper. However, we cannot bind the redeclaration of the damper component to the redeclaration of the return fan component. So we introduce a section `Templates.AirHandlersFans.Components.ReliefReturnSection` that contains the two components, so that the whole section component can be redeclared with the proper inside fan and damper components.
+In the case of a multiple-zone VAV with an air economizer, a return fan should require a modulating relief damper. However, we cannot bind the redeclaration of the damper component to the redeclaration of the return fan component. So we introduce a section `Templates.AirHandlersFans.Components.ReliefReturnSection` that contains the two components, so that the whole section component can be redeclared with the proper inside fan and damper components.
 :::
 
 The interface class for a section should use the same class for the control bus as the one used by the system template.
@@ -147,7 +147,12 @@ To be updated.
 
 ## Master record
 
-The template master record is the Modelica data structure that is used to populate the [equipment schedule in Linkage UI](https://docs.google.com/spreadsheets/d/1kko4qZswFHUqOeexBIz8Ix_ngJB_9dcjwFRQxO_G56c/edit?usp=sharing).
+The master record of a template class is the Modelica data structure that is used to
+
+- assign design and operating parameter values for all subcomponents,
+- support parameter propagation from a top-level, whole HVAC system parameter record,
+- populate the [equipment schedule in Linkage UI](https://docs.google.com/spreadsheets/d/1kko4qZswFHUqOeexBIz8Ix_ngJB_9dcjwFRQxO_G56c/edit?usp=sharing).
+
 
 ### Implementation rules
 
@@ -156,7 +161,7 @@ The template master record is the Modelica data structure that is used to popula
 If needed, component records must extend (not instantiate) subcomponent records.
 For instance in `Buildings.Templates.Components.Coils.Interfaces.Data`:
 
-- The class cannot extend `Buildings.Templates.Components.Valves.Interfaces.Data` because of the duplicated inconsistent declaration of `typ`.
+- The class cannot extend `Buildings.Templates.Components.Valves.Interfaces.Data` because of the colliding  declarations of `typ`.
 - So `dpValve_nominal` is declared locally and a protected record with the type `Buildings.Templates.Components.Valves.Interfaces.Data` is constructed to pass in parameters to the valve component.
 
 ###### Configuration parameters must be set through the component model, not through the record
@@ -164,11 +169,12 @@ For instance in `Buildings.Templates.Components.Coils.Interfaces.Data`:
 - Structural parameters are assigned ***from*** the component model ***to*** the record, and propagated ***up*** the instance tree.
 - Design and operating parameters are assigned ***from*** the record ***to*** the component model, and propagated ***down*** the instance tree.
 
-The record for the [controller section](#control-section) needs to be instantiated (not extended) in the master record because it requires many structural parameters (such as `typFanSup`) that are duplicated from the master record.
+The record for the [controller section](#control-section) needs to be instantiated (not extended) in the master record because it requires many structural parameters (such as `typFanSup`) that have duplicates in the master record.
 
 
 At the component level, we instantiate the component record and bind (`final`) local parameters to the record elements, as in `Buildings.Fluid.Chillers.ElectricEIR` (as opposed to extending the record to integrate the parameter definitions as `Buildings.Fluid.Actuators.BaseClasses.ValveParameters`).
-This allows simpler propagation (only the record is passed in), agnostic from the parameter structure of the constraining class (for instance `mWat_flow_nominal` is not defined in `Buildings.Templates.Components.Coils.Interfaces.PartialCoil`).
+This allows simpler propagation (only the record is passed in) which is agnostic from the parameter structure of the constraining class (for instance `mWat_flow_nominal` is not defined in `Buildings.Templates.Components.Coils.Interfaces.PartialCoil`).
+
 
 ###### Do not use final bindings for configuration parameters
 
@@ -183,6 +189,7 @@ Top-level model with outer references should be supported but the valid `outer r
 
 At the AHU template level, switching to outer references (and using a model instead of a record&mdash;as [elements of a record shall not have `inner` nor `outer` prefixes](https://specification.modelica.org/maint/3.5/class-predefined-types-and-declarations.html#specialized-classes)) would avoid painful propagation of configuration parameters `typ*`. However, this will not support propagation from a top level (whole building) record then.
 :::
+
 
 ### Exposed parameters
 
