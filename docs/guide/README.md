@@ -4,74 +4,100 @@
 
 ## Interface class
 
-What must be declared within an interface class:
+### What shall be declared?
 
-- All outside connectors needed by any derived class&mdash;with the suitable conditional instance statements
-
-  ::: danger Important
-
-  All outside connectors must be declared within the interface class.
-  (Each class extending an interface class shall not declare any outside connector: it may only conditionally remove inherited connectors.)
-  :::
-
-  This ensures the [plug-compatibility](https://specification.modelica.org/maint/3.5/interface-or-type-relationships.html#plug-compatibility-or-restricted-subtyping) of any derived class, and allows
-  - at the template level: defining all possible connections inside a template class, whatever the redeclarations performed on its components,
-  - at the simulation model level: having a fixed connectivity structure for each instantiated subsystem model, which allows to connect those instances together without any concern about the actual configuration of each subsystem.
-
-  ::: details
-
-  *How does it comply with the [Modelica Language Specification](https://specification.modelica.org/maint/3.5/scoping-name-lookup-and-flattening.html#generation-of-the-flat-equation-system)?*
-
-  - Type compatibility
-
-    > Each reference is checked, whether it is a valid reference, e.g. the referenced object belongs to or is an instance, where all *existing conditional declaration expressions evaluate to true* or it is a constant in a package.
-
-    So checking that the redeclared component is a subtype of the constraining class is done with all the conditional connectors considered present (even if the redeclared component removes them).
-
-  *How does it differ from interface classes in MBL?*
-
-  Interface classes are usually implemented with the minimum set of connectors (and other variables) and derived classes extend that set (which ensures type compatibility).
-  See for instance `Buildings.Fluid.Boilers.BaseClasses.PartialBoiler`:
-
-  ```mo
-  // Buildings.Fluid.Boilers.BaseClasses.PartialBoiler
-    extends Interfaces.TwoPortHeatMassExchanger(...); // Interface class used by the model
-
-    Modelica.Blocks.Interfaces.RealInput y(...)       // Additional connector not declared in the interface class
-      "Part load ratio";
-    Modelica.Blocks.Interfaces.RealOutput T(...)      // Additional connector not declared in the interface class
-      "Temperature of the fluid";
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort  // Additional connector not declared in the interface class
-      "Heat port, can be used to connect to ambient";
-  ```
-  :::
-
-- [Parameter record](#master-record) and design parameters
-
-  ```mo
-  final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
-    dat.mAirSup_flow_nominal
-    "Supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
-    dat.mAirRet_flow_nominal
-    "Return air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
-    "Total CHW mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal
-    "Total HHW mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal
-    "Total CHW heat flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
-    "Total HHW heat flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  ```
+###### All outside connectors needed by any derived class
 
 
+::: danger Important
+
+All outside connectors must be declared within the interface class&mdash;with the suitable conditional instance statements.
+
+(Each class extending an interface class shall not declare any outside connector&mdash;it may only conditionally remove inherited connectors.)
+:::
+
+This ensures the [plug-compatibility](https://specification.modelica.org/maint/3.5/interface-or-type-relationships.html#plug-compatibility-or-restricted-subtyping) of any derived class, and allows
+- at the template level: defining all possible connections inside a template class, whatever the redeclarations performed on its components,
+- at the simulation model level: having a fixed connectivity structure for each instantiated subsystem model, which allows to connect those instances together without any concern about the actual configuration of each subsystem.
+
+::: details
+
+*How does it comply with the [Modelica Language Specification](https://specification.modelica.org/maint/3.5/scoping-name-lookup-and-flattening.html#generation-of-the-flat-equation-system)?*
+
+- Type compatibility
+
+  > Each reference is checked, whether it is a valid reference, e.g. the referenced object belongs to or is an instance, where all *existing conditional declaration expressions evaluate to true* or it is a constant in a package.
+
+  So checking that the redeclared component is a subtype of the constraining class is done with all the conditional connectors considered present (even if the redeclared component removes them).
+
+*How does it differ from interface classes in MBL?*
+
+Interface classes are usually implemented with the minimum set of connectors (and other variables) and derived classes extend that set (which ensures type compatibility).
+See for instance `Buildings.Fluid.Boilers.BaseClasses.PartialBoiler`:
+
+```mo
+// Buildings.Fluid.Boilers.BaseClasses.PartialBoiler
+  extends Interfaces.TwoPortHeatMassExchanger(...); // Interface class used by the model
+
+  Modelica.Blocks.Interfaces.RealInput y(...)       // Additional connector not declared in the interface class
+    "Part load ratio";
+  Modelica.Blocks.Interfaces.RealOutput T(...)      // Additional connector not declared in the interface class
+    "Temperature of the fluid";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort  // Additional connector not declared in the interface class
+    "Heat port, can be used to connect to ambient";
+```
+:::
+
+###### Configuration parameters and system tags
+
+To be updated.
+
+
+###### Both the [parameter record](#master-record) *and* locally accessible design parameters
+
+The parameter record is for propagation across the instance tree.
+
+The local design parameter declarations ensure that we have a standard set of parameters available in each template or component, whatever the configuration. For instance an evaporator coil still has `mChiWat_flow_nominal` defined with a final assignment to `0`.
+Most of the local design parameters will have final assignments to the parameters from the record.
+
+::: details Example
+
+```mo
+// Interface class Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler
+
+final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
+  dat.mAirSup_flow_nominal
+  "Supply air mass flow rate"
+  annotation (Dialog(group="Nominal condition"));
+final parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal=
+  dat.mAirRet_flow_nominal
+  "Return air mass flow rate"
+  annotation (Dialog(group="Nominal condition"));
+parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
+  "Total CHW mass flow rate"
+  annotation (Dialog(group="Nominal condition"));
+parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal
+  "Total HHW mass flow rate"
+  annotation (Dialog(group="Nominal condition"));
+parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal
+  "Total CHW heat flow rate"
+  annotation (Dialog(group="Nominal condition"));
+parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
+  "Total HHW heat flow rate"
+  annotation (Dialog(group="Nominal condition"));
+
+// Derived class Buildings.Templates.AirHandlersFans.VAVMultiZone
+
+extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
+  ...
+  final mChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.mWat_flow_nominal else 0,
+  final mHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.mWat_flow_nominal else 0) +
+    (if coiHeaReh.have_sou then dat.coiHeaReh.mWat_flow_nominal else 0),
+  final QChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.Q_flow_nominal else 0,
+  final QHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.Q_flow_nominal else 0) +
+    (if coiHeaReh.have_sou then dat.coiHeaReh.Q_flow_nominal else 0));
+```
+:::
 
 ## Replaceable component
 
@@ -125,7 +151,7 @@ The template master record is the Modelica data structure that is used to popula
 
 ### Implementation rules
 
-*Use only one level of nesting (composition).*
+###### Use only one nesting level
 
 If needed, component records must extend (not instantiate) subcomponent records.
 For instance in `Buildings.Templates.Components.Coils.Interfaces.Data`:
@@ -133,7 +159,7 @@ For instance in `Buildings.Templates.Components.Coils.Interfaces.Data`:
 - The class cannot extend `Buildings.Templates.Components.Valves.Interfaces.Data` because of the duplicated inconsistent declaration of `typ`.
 - So `dpValve_nominal` is declared locally and a protected record with the type `Buildings.Templates.Components.Valves.Interfaces.Data` is constructed to pass in parameters to the valve component.
 
-*Structural (configuration) parameters must be set through the component model, not through the record.*
+###### Configuration parameters must be set through the component model, not through the record
 
 - Structural parameters are assigned ***from*** the component model ***to*** the record, and propagated ***up*** the instance tree.
 - Design and operating parameters are assigned ***from*** the record ***to*** the component model, and propagated ***down*** the instance tree.
@@ -144,7 +170,9 @@ The record for the [controller section](#control-section) needs to be instantiat
 At the component level, we instantiate the component record and bind (`final`) local parameters to the record elements, as in `Buildings.Fluid.Chillers.ElectricEIR` (as opposed to extending the record to integrate the parameter definitions as `Buildings.Fluid.Actuators.BaseClasses.ValveParameters`).
 This allows simpler propagation (only the record is passed in), agnostic from the parameter structure of the constraining class (for instance `mWat_flow_nominal` is not defined in `Buildings.Templates.Components.Coils.Interfaces.PartialCoil`).
 
-*Do not use final bindings for configuration parameters, use `annotation(Dialog(enable=false))` instead.*
+###### Do not use final bindings for configuration parameters
+
+Use `annotation(Dialog(enable=false))` instead.
 
 This is a temporary workaround for what seems to be a bug in Dymola (SRF00860858) and to allow propagating from a top-level (whole building) record as in `Buildings.Templates.AirHandlersFans.Validation.VAVMZNoEconomizer`.
 
@@ -197,7 +225,8 @@ Those raw icons must be processed as described below for Inkscape (v1.1) before 
 ### Git workflow
 
 The main feature branch for template development is [`issue1374_templates`](https://github.com/lbl-srg/modelica-buildings/tree/issue1374_templates) that currently depends on&mdash;and is periodically kept in sync with
-- MBL master
+
+- MBL `master`
 - MBL [`issue1913_g36_final`](https://github.com/lbl-srg/modelica-buildings/tree/issue1913_g36_final)
 
 Each new development should
