@@ -38,7 +38,7 @@ See also [Enable](#enable).
 
 For VFDs, Enable is a special contact on the VFD panel typically hardwired to a relay logic for safety (see [Guideline 36](../references.md#g36) Figure A-9 for instance). This is not the same as the DO point that actually starts the equipment ("on/off command" or "start signal") which is wired to VFD Run contact.
 
-Enable is used differently for an equipment with built-in control (e.g. chiller or boiler) where the "on/off command" is wired to the Enable contact on the control panel (see RP1711 §4), there is no Run contact.
+Enable is used differently for an equipment with built-in control (e.g. chiller or boiler) where the "on/off command" is wired to the Enable contact on the control panel (see [RP1711](../references.md#rp1711) §4). There is no Run contact in that case: Enable is used in lieu of Run.
 
 - Abbreviated as `y1<instance-name>`
 
@@ -66,6 +66,8 @@ Used for the AO signal sent to an equipment.
 Position feedback is used for the AI signal returned by a modulating actuator.
 
 - Abbreviated as `y<instance-name>_actual`
+
+For two-position actuators, use [open or closed end switch status](#status).
 
 ### Set point
 
