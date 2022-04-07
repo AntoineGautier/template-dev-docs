@@ -185,7 +185,7 @@ This is a temporary workaround for what seems to be a bug in Dymola (SRF00860858
 
 ::: details About outer references
 
-Top-level model with outer references should be supported but the valid `outer replaceable` component declaration clause differs between OCT and Dymola, see [`issue1374_templates_record_outer`](https://github.com/AntoineGautier/modelica-buildings/blob/issue1374_templates_record_outer/Buildings/Templates/AirHandlersFans/Validation/UserProject/DataTopLevelDymola.mo).
+Top-level models with outer references should be supported but the valid `outer replaceable` component declaration clause differs between OCT and Dymola, see [`issue1374_templates_record_outer`](https://github.com/AntoineGautier/modelica-buildings/blob/issue1374_templates_record_outer/Buildings/Templates/AirHandlersFans/Validation/UserProject/DataTopLevelDymola.mo).
 
 At the AHU template level, switching to outer references (and using a model instead of a record&mdash;as [elements of a record shall not have `inner` nor `outer` prefixes](https://specification.modelica.org/maint/3.5/class-predefined-types-and-declarations.html#specialized-classes)) would avoid painful propagation of configuration parameters `typ*`. However, this will not support propagation from a top level (whole building) record then.
 :::
@@ -194,6 +194,15 @@ At the AHU template level, switching to outer references (and using a model inst
 ### Exposed parameters
 
 To be updated.
+
+### Feature enhancement
+
+Implement a subrecord with configuration (structural) parameters--intantieted as `cfg`.
+
+That subrecord must be declared in the master record ***and*** in the components so that
+
+- structural parameters be propagated up with `dat(cfg=component.str)`,
+- design parameters be propagated down with `component(dat=dat)` without any circular dependency.
 
 
 
